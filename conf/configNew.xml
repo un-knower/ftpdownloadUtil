@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	
+	<taskLoader>
+		<period>2</period><!-- 任务加载周期:分钟 -->
+	</taskLoader>
+
+	<!--ftp配置信息 -->
+	<ftp id="hw">
+		<ip>192.168.15.223</ip><!-- 厂家设备IP -->
+		<port>21</port><!-- ftp端口 -->
+		<username>rd</username><!-- 用户名 -->
+		<password>uway_rd_good</password><!-- 密码 -->
+		<transMode>pasv</transMode><!-- 传输模式，port或pasv -->
+		<bufferSize>8192</bufferSize><!-- 传输文件时的缓冲区大小（字节） -->
+		<dataTimeout>900</dataTimeout><!-- 数据传输超时时间（秒） -->
+		<retryTimes>3</retryTimes><!-- 登录重试次数 -->
+		<retryDelaySecond>5</retryDelaySecond><!-- 登录重试间隔时间（秒） -->
+		<listTryTimes>1</listTryTimes><!-- 执行LIST命令的重试次数 -->
+		<listTryDelay>1</listTryDelay><!-- 执行LIST命令的重试间隔时间（秒) -->
+		<downloadTryTimes>3</downloadTryTimes><!-- 下载重试次数 -->
+		<downloadTryDelay>5</downloadTryDelay><!-- 下载重试间隔时间（秒） -->
+		<validateCmd></validateCmd>
+		<charset>utf-8</charset><!-- ftp编码设置 -->
+		<maxConnections>4</maxConnections><!-- ftp连接池最连接数 -->
+		<MaxWaitSecond>15</MaxWaitSecond><!-- 获取FTP链接最大等待时间 -->
+	</ftp>
+
+	<ftp id="nokia">
+		<ip>192.168.15.223</ip><!-- 厂家设备IP -->
+		<port>21</port><!-- ftp端口 -->
+		<username>rd</username><!-- 用户名 -->
+		<password>uway_rd_good</password><!-- 密码 -->
+		<transMode>pasv</transMode><!-- 传输模式，port或pasv -->
+		<bufferSize>8192</bufferSize><!-- 传输文件时的缓冲区大小（字节） -->
+		<dataTimeout>900</dataTimeout><!-- 数据传输超时时间（秒） -->
+		<loginTryTimes>3</loginTryTimes><!-- 登录重试次数 -->
+		<loginTryDelay>5</loginTryDelay><!-- 登录重试间隔时间（秒） -->
+		<listTryTimes>1</listTryTimes><!-- 执行LIST命令的重试次数 -->
+		<listTryDelay>1</listTryDelay><!-- 执行LIST命令的重试间隔时间（秒) -->
+		<downloadTryTimes>3</downloadTryTimes><!-- 下载重试次数 -->
+		<downloadTryDelay>5</downloadTryDelay><!-- 下载重试间隔时间（秒） -->
+		<charset>utf-8</charset><!-- ftp编码设置 -->
+		<maxConnections></maxConnections>
+	</ftp>
+
+
+	<!--下载任务配置信息 -->
+	<task>
+		<taskName>HW_PM</taskName><!-- 任务名称，要求唯一 -->
+		<isRun>false</isRun><!-- 任务是否启动 -->
+		<ftpId>hw</ftpId><!-- 使用的ftp配置ID -->
+		<startTime>2014-05-26 20:15:00</startTime><!-- 任务执行开始时间(格式:yyyy-MM-dd HH:mm:ss) -->
+		<endTime>2014-05-28 20:15:00</endTime><!-- 任务执行结束时间(格式:yyyy-MM-dd HH:mm:ss) -->
+		<!-- 采集路径时间通配配置说明 -->
+		<!-- 时间通配标记为{d}，在{d和}中间填写时间格式,年:yyyy, 月:MM, 天:dd, 24小时:HH, 12小时:hh, 分钟:mm, 秒:ss -->
+		<!-- 例如 2014-06-24,配置为{dyyyy-MM-dd} -->
+		<!-- 请配置人员注意:尽量减少*号所代表的字符，这样有助提高采集效率 -->
+		<gatherPath>/ftp/lte/unicome/华为/北京-性能/neexport_{dyyyyMMdd}/*/*{dyyyyMMdd.HHmm}*.xml.gz</gatherPath><!-- 采集路径 -->
+		<needDecompress>true</needDecompress> <!-- 是否需要对下载的gz文件进行解压操作 -->
+		<downLoadPath>E:/IGPV3/ftptool/download_hw</downLoadPath><!-- 文件下载地址 -->
+		<period>5</period>
+		<workerType>ASYN_TASK</workerType><!-- 是否为同步下载任务，默认为此任务 -->
+		<fileGeneratePeriod>15</fileGeneratePeriod><!-- 厂家文件产生周期（分钟） -->
+		<downLoadJobNum>3</downLoadJobNum><!-- 下载线程数目,不大于ftp连接池最连接数-1 -->
+		<compressToPath>E:/IGPV3/ftptool/hwZip</compressToPath><!-- 打包目录 -->
+		<compressPattern>.zip</compressPattern><!-- 打包格式 -->
+		<delayZip>5</delayZip><!-- 延迟打包时间(分钟),不能大于厂家文件产生周期 -->
+		<retentionTime>72</retentionTime><!-- 压缩文件保留多少个小时的数据。过期后删除 -->
+		<zipTool>winrar.exe</zipTool>
+	</task>
+
+	<!--下载任务配置信息 -->
+	<task>
+		<taskName>NOKIA_PM</taskName>
+		<isRun>false</isRun>
+		<ftpId>nokia</ftpId>
+		<startTime>2014-06-04 06:00:00</startTime><!-- 任务执行开始时间(格式:yyyy-MM-dd HH:mm:ss) -->
+		<endTime>2014-06-04 10:00:00</endTime><!-- 任务执行结束时间(格式:yyyy-MM-dd HH:mm:ss) -->
+		<!-- 采集路径时间通配配置说明 -->
+		<!-- 时间通配标记为{d}，在{d和}中间填写时间格式,年:yyyy, 月:MM, 天:dd, 24小时:HH, 12小时:hh, 分钟:mm, 秒:ss -->
+		<!-- 例如 2014-06-24,配置为{dyyyy-MM-dd} -->
+		<!-- 请配置人员注意:尽量减少*号所代表的字符，这样有助提高采集效率 -->
+		<gatherPath>/ftp/lte/telecom/test_nokia/pm/{dyyyyMMddHH}/*.xml.gz</gatherPath><!-- 采集路径 -->
+		<needDecompress>true</needDecompress>  <!-- 是否需要对下载的gz文件进行解压操作 -->
+		<downLoadPath>E:/IGPV3/ftptool/download_nokia</downLoadPath><!-- 文件下载地址 -->
+		<period>5</period>
+		<workerType>SYN_TASK</workerType><!-- 是否为同步下载任务，默认为此任务 -->
+		<fileGeneratePeriod>60</fileGeneratePeriod><!-- 厂家文件产生周期（分钟） -->
+		<downLoadJobNum>1</downLoadJobNum><!-- 下载线程数目 -->
+		<compressToPath>E:/IGPV3/ftptool/nokiaZip</compressToPath><!-- 打包目录 -->
+		<compressPattern>.zip</compressPattern><!-- 打包格式 -->
+		<delayZip>5</delayZip><!-- 延迟打包时间(分钟),不能大于厂家文件产生周期 -->
+		<retentionTime>72</retentionTime><!-- 压缩文件保留多少个小时的数据。过期后删除 -->
+		<zipTool>winrar.exe</zipTool>
+	</task>
+	
+	<!--下载任务配置信息 -->
+	<task>
+		<taskName>ERIC_PM</taskName>
+		<isRun>false</isRun>
+		<ftpId>nokia</ftpId>
+		<startTime>2014-05-25 18:15:00</startTime><!-- 任务执行开始时间(格式:yyyy-MM-dd HH:mm:ss) -->
+		<endTime>2015-06-04 10:00:00</endTime><!-- 任务执行结束时间(格式:yyyy-MM-dd HH:mm:ss) -->
+		<!-- 采集路径时间通配配置说明 -->
+		<!-- 时间通配标记为{d}，在{d和}中间填写时间格式,年:yyyy, 月:MM, 天:dd, 24小时:HH, 12小时:hh, 分钟:mm, 秒:ss -->
+		<!-- 例如 2014-06-24,配置为{dyyyy-MM-dd} -->
+		<!-- 请配置人员注意:尽量减少*号所代表的字符，这样有助提高采集效率 -->
+		<gatherPath>/var/opt/ericsson/nms_umts_pms_seg/segment1/XML/SubNetwork=WUXI/*/*{dyyyyMMdd.HHmm}*.xml</gatherPath><!-- 采集路径 -->
+		<downLoadPath>E:/IGPV3/ftptool/download_eric</downLoadPath><!-- 文件下载地址 -->
+		<needDecompress>false</needDecompress> <!-- 是否需要对下载的gz文件进行解压操作 -->
+		<workerType>ASYN_TASK</workerType><!-- 是否为同步下载任务，默认为此任务 -->
+		<fileGeneratePeriod>15</fileGeneratePeriod><!-- 厂家文件产生周期（分钟） -->
+		<downLoadJobNum>1</downLoadJobNum><!-- 下载线程数目 -->
+		<compressToPath>E:/IGPV3/ftptool/eric</compressToPath><!-- 打包目录 -->
+		<compressPattern>.zip</compressPattern><!-- 打包格式 -->
+		<delayZip>5</delayZip><!-- 延迟打包时间(分钟),不能大于厂家文件产生周期 -->
+		<retentionTime>72</retentionTime><!-- 压缩文件保留多少个小时的数据。过期后删除 -->
+	</task>
+	
+	<!--下载任务配置信息 -->
+	<task>
+		<taskName>ALU_PM</taskName>
+		<isRun>true</isRun>
+		<ftpId>nokia</ftpId>
+		<startTime>2014-05-16 09:45:00</startTime><!-- 任务执行开始时间(格式:yyyy-MM-dd HH:mm:ss) -->
+		<endTime>2015-06-04 10:00:00</endTime><!-- 任务执行结束时间(格式:yyyy-MM-dd HH:mm:ss) -->
+		<period>5</period><!-- 任务运行周期 -->
+		<!-- 采集路径时间通配配置说明 -->
+		<!-- 时间通配标记为{d}，在{d和}中间填写时间格式,年:yyyy, 月:MM, 天:dd, 24小时:HH, 12小时:hh, 分钟:mm, 秒:ss -->
+		<!-- 例如 2014-06-24,配置为{dyyyy-MM-dd} -->
+		<!-- 请配置人员注意:尽量减少*号所代表的字符，这样有助提高采集效率 -->
+		<gatherPath>/ftp/lte/unicome/阿朗/广西/PM/*{dyyyyMdd.HHmm}*.gz</gatherPath><!-- 采集路径 -->
+		<downLoadPath>E:/IGPV3/ftptool/download_alu</downLoadPath><!-- 文件下载地址 -->
+		<needDecompress>false</needDecompress> <!-- 是否需要对下载的gz文件进行解压操作 -->
+		<workerType>ASYN_TASK</workerType><!-- 是否为同步下载任务，默认为此任务 -->
+		<fileGeneratePeriod>15</fileGeneratePeriod><!-- 厂家文件产生周期（分钟） -->
+		<downLoadJobNum>1</downLoadJobNum><!-- 下载线程数目 -->
+		<compressToPath>E:/IGPV3/ftptool/alu</compressToPath><!-- 打包目录 -->
+		<compressPattern>.zip</compressPattern><!-- 打包格式 -->
+		<delayZip>5</delayZip><!-- 延迟打包时间(分钟),不能大于厂家文件产生周期 -->
+		<retentionTime>72</retentionTime><!-- 压缩文件保留多少个小时的数据。过期后删除 -->
+	</task>
+</config>

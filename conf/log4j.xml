@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<log4j>
+		<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+			<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+				<param name="File" value="log/system.log" />
+				<param name="Append" value="true" />
+				<param name="MaxBackupIndex" value="10" />
+				<layout class="org.apache.log4j.PatternLayout">
+					<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [%t][%p] %m%n" />
+				</layout>
+			</appender>
+			<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+				<layout class="org.apache.log4j.PatternLayout">
+					<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [%t][%p] %m%n" />
+				</layout>
+				<filter class="org.apache.log4j.varia.LevelRangeFilter">
+					<param name="LevelMin" value="DEBUG" />
+					<param name="LevelMax" value="FATAL" />
+				</filter>
+			</appender>
+			<root>
+				<priority value="debug" />
+				<appender-ref ref="FILE" />
+				<appender-ref ref="STDOUT" />
+			</root>
+		</log4j:configuration>
+	</log4j>
+</config>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<!--ftp配置信息 -->
+	<ftp>
+		<ip>192.168.15.223</ip><!-- 厂家设备IP -->
+		<port>21</port><!-- ftp端口-->
+		<username>rd</username><!-- 用户名-->
+		<password>uway_rd_good</password><!-- 密码-->
+		<localPath>/home/yuy/my/test/download_hw</localPath><!-- 下载到本地的目录-->
+		<transMode>pasv</transMode><!-- 传输模式，port或pasv-->
+		<bufferSize>8192</bufferSize><!-- 传输文件时的缓冲区大小（字节）-->
+		<dataTimeout>900</dataTimeout><!-- 数据传输超时时间（秒）-->
+		<loginTryTimes>3</loginTryTimes><!-- 登录重试次数 -->
+		<loginTryDelay>5</loginTryDelay><!-- 登录重试间隔时间（秒） -->
+		<listTryTimes>1</listTryTimes><!-- 执行LIST命令的重试次数 -->
+		<listTryDelay>1</listTryDelay><!-- 执行LIST命令的重试间隔时间（秒) -->
+		<downloadTryTimes>3</downloadTryTimes><!-- 下载重试次数 -->
+		<downloadTryDelay>5</downloadTryDelay><!-- 下载重试间隔时间（秒） -->
+		<charset>utf-8</charset><!-- ftp编码设置 -->
+		<retentionTime>72</retentionTime><!-- 保留多少个小时的数据。过期后删除 -->
+	</ftp>
+	<!--下载任务配置信息 -->
+	<task>
+		<taskName>HW_PM</taskName>
+		<startTime>2014-05-26 02:00:00</startTime><!-- 任务执行开始时间(格式:yyyy-MM-dd HH:mm:ss) -->
+		<endTime>2014-05-28 00:00:00</endTime><!-- 任务执行结束时间(格式:yyyy-MM-dd HH:mm:ss)  -->
+		<gatherPath>/ftp/lte/unicome/华为/北京-性能/neexport_*/*/*.xml.gz</gatherPath><!-- 采集路径 -->
+		<period>1</period><!-- 任务扫描周期(单位：分钟) -->
+		<fileGeneratePeriod>15</fileGeneratePeriod><!-- 文件产生周期(单位：分钟) -->
+		<downLoadJobNum>2</downLoadJobNum><!-- 下载job的数量，即并发下载线程数 -->
+		<compressToPath>/home/yuy/my/test/zip_hw</compressToPath><!-- 打包目的地 -->
+		<compressPattern>.zip</compressPattern><!-- 打包文件的格式(此处禁止修改) -->
+		<zipTool>winrar.exe</zipTool><!-- winrar解压缩工具(windows服务器必须要配) -->
+	</task>
+</config>
